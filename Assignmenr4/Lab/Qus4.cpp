@@ -2,82 +2,79 @@
 using namespace std;
 
 class Queue {
-    int *arr;
+    char *arr;
     int front, rear, size;
 
 public:
     Queue(int n) {
         size = n;
-        arr = new int[n];
+        arr = new char[n];
         front = 0;
         rear = -1;
     }
 
-    void enqueue(int x) {
+    void enqueue(char x) {
         if(rear == size-1) {
-            cout << "Queue Overflow" << endl;
-            return;
+            return; 
         }
         rear++;
         arr[rear] = x;
     }
 
-    int dequeue() {
+    void dequeue() {
         if(front > rear) {
-            cout << "Queue Underflow" << endl;
-            return -1;
+            return;
         }
-        int val = arr[front];
         front++;
-        return val;
+    }
+
+    char getFront() {
+        if(front <= rear) {
+            return arr[front];
+        }
+       
     }
 
     bool isEmpty() {
         return front > rear;
     }
-
-    int getSize() {
-        return rear - front + 1;
-    }
 };
 
-void interleaveQueue(int arr[], int n) {
-    Queue q1(n/2), q2(n/2), result(n);
+void firstNonRepeating(string str) {
+    int n = str.length();
+    Queue q(n);
+    int freq[26] = {0};   
 
-    for(int i=0; i<n/2; i++) {
-        q1.enqueue(arr[i]);
-    }
+    for(int i=0; i<n; i++) {
+        char ch = str[i];
 
-    for(int i=n/2; i<n; i++) {
-        q2.enqueue(arr[i]);
-    }
+     
+        freq[ch - 'a']++;
 
+        q.enqueue(ch);
 
-    while(!q1.isEmpty() && !q2.isEmpty()) {
-        result.enqueue(q1.dequeue());
-        result.enqueue(q2.dequeue());
-    }
+      
+        while(!q.isEmpty() && freq[q.getFront() - 'a'] > 1) {
+            q.dequeue();
+        }
 
-
-    cout << "Interleaved Queue: ";
-    while(!result.isEmpty()) {
-        cout << result.dequeue() << " ";
+   
+        if(q.isEmpty()) {
+            cout << -1 << " ";
+        }
+        else {
+            cout << q.getFront() << " ";
+        }
     }
     cout << endl;
 }
 
 int main() {
-    int n;
-    cout << "Enter number of elements : "<<endl;
-    cin >> n;
+    string str;
+    cout << "Enter string: "<<endl;
+    cin >> str;
 
-    int arr[100];
-    cout << "Enter elements:" << endl;
-    for(int i=0; i<n; i++) {
-        cin >> arr[i];
-    }
-
-    interleaveQueue(arr, n);
+    firstNonRepeating(str);
 
     return 0;
 }
