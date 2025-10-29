@@ -211,15 +211,12 @@ int main ()
    
 
        Node *node1=new Node(10);
-
-       cout<<node1->data<<endl;
-       cout<<node1->next<<endl;
-
        Node *node2=new Node(20);
        Node *node3=new Node(30);
  
        node1->next=node2;
        node2->next=node3;
+       node3->next=node1;
 
        Node *Head=node1;
        Node*Tail=node3;  
