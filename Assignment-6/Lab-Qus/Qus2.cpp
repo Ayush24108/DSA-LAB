@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+class Node{
+
+    public:
+    int data;
+    Node *next;
+
+    Node(int data)
+    {
+        this->data=data;
+          this ->next=NULL;
+    }
+};
+
+void print(Node *Tail)
+{
+    Node*temp=Tail->next;
+
+   do
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    } while(temp!=Tail->next);
+    
+
+cout << Tail->next->data << endl;
+
+ 
+    
+}
+
+int main ()
+{
+
+   
+
+       Node *node1=new Node(10);
+       Node *node2=new Node(20);
+       Node *node3=new Node(30);
+ 
+       node1->next=node2;
+       node2->next=node3;
+       node3->next=node1;
+
+       Node *Head=node1;
+       Node*Tail=node3;  
+
+       print(Tail);
+       
+}
