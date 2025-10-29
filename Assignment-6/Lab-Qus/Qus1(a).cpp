@@ -157,13 +157,7 @@ void Delete(Node*&Tail,int pos,int length)
 
     else if(pos==length)
     {
-        Node* temp = Tail->next; 
-        while (temp->next != Tail) {
-            temp = temp->next;
-        }
-        temp->next = Tail->next; 
-        delete Tail;
-        Tail = temp; 
+        DeleteAtEnd(Tail);
         return;
     }
 
